@@ -13,10 +13,8 @@ docker compose up --build
 ## Request Example
 
 ```bash
-# Convert an image from TIFF to PNG
 curl -X POST http://localhost:8001/echo \
   -H "Content-Type: application/json" \
-  --output frame.png \
   -d '{
         "content": "hello service!"
       }'
