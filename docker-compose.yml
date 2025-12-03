@@ -1,7 +1,11 @@
 services:
-  template_service:
+  roi_service:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - "${DATA_DIR:-./data}:/data/ifcb:ro"
     ports:
       - "8001:8001"

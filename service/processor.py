@@ -17,7 +17,6 @@ class IfcbRoiProcessor(BaseProcessor):
     """Processor for accessing IFCB ROI images and associated technical metadata."""
 
     def __init__(self, data_dir: str = "/data/ifcb"):
-        super().__init__()
         self.data_dir = data_dir
 
     @property

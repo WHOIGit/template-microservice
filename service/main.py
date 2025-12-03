@@ -1,3 +1,5 @@
+import os
+
 from stateless_microservice import ServiceConfig, create_app
 
 from .processor import IfcbRoiProcessor
@@ -6,9 +8,9 @@ config = ServiceConfig(
     description="Service for accessing IFCB ROI images and associated technical metadata.",
 )
 
-DATA_DIR = "/Users/jfutrelle/Data/ifcb-data/example-dataset"
+DATA_DIR = os.getenv("DATA_DIR", "/data")
 
-app = create_app(IfcbRoiProcessor(data_dir=DATA_DIR), config)
+app = create_app(IfcbRoiProcessor(), config)
 
 if __name__ == "__main__":
     import uvicorn
