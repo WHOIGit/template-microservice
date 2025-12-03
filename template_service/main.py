@@ -2,7 +2,7 @@
 
 from stateless_microservice import ServiceConfig, create_app
 
-from .processor import Processor
+from .processor import EchoProcessor
 
 config = ServiceConfig(
     description="Template microservice framework.",

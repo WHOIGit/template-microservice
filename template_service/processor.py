@@ -34,7 +34,7 @@ class EchoProcessor(BaseProcessor):
             ),
         ]
 
-    async def handle_echot(self, payload: EchoRequest):
+    async def handle_echo(self, payload: EchoRequest):
         """Echo the incoming request."""
 
         return payload.content
