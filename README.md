@@ -1,21 +1,34 @@
-# Template Stateless Service
+# IFCB ROI microservice
 
-An example template stateless service. Intended to be used as starter code for services.
+### Description
 
-- `POST /echo` — Echoes the request content back to the user.
+Given a ROI ID, returns a base64-encoded ROI image and a small amount of technical metadata
 
-## Run with Docker Compose
+### URL pattern
 
-```bash
-docker compose up --build
+* POST: `/roi-image`
+* GET: `/roi-image/{pid}`
+
+### Example POST payload
+
+```json
+{
+  "pid": "D20230412T123456_IFCB10_00341"
+}
 ```
 
-## Request Example
+### Example GET URL
 
-```bash
-curl -X POST http://localhost:8001/echo \
-  -H "Content-Type: application/json" \
-  -d '{
-        "content": "hello service!"
-      }'
+`/roi-image/D20230412T123456_IFCB10_00341`
+
+### Example output
+
+```json
+{
+  "pid": "D20230412T123456_IFCB10_00341",
+  "bin-pid": "D20230412T123456_IFCB10",
+  "content-type": "image/png",
+  "image": "{base64 encoded PNG}"
+}
 ```
+
