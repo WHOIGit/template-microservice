@@ -1,11 +1,12 @@
 [project]
-name = "template-service"
+name = "ifcb-roi-service"
 version = "0.1.0"
-description = "Template microservice."
+description = "Service for accessing IFCB ROI images and associated technical metadata."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "amplify-stateless @ git+https://github.com/WHOIGit/amplify-stateless-microservice.git@v1.1.0",
+    "pyifcb @ git+https://github.com/joefutrelle/pyifcb.git@v1.2.1",
 ]
 
 [build-system]
