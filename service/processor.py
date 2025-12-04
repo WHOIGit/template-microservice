@@ -8,10 +8,6 @@ from stateless_microservice import BaseProcessor, StatelessAction
 
 from service.roistore import IfcbRoiStore
 
-class RoiRequest(BaseModel):
-    """Request payload for ROI service."""
-    pass
-
 class RoiParams(BaseModel):
     pid: str = Field(..., description="ROI pid")
 
@@ -32,7 +28,6 @@ class IfcbRoiProcessor(BaseProcessor):
             StatelessAction(
                 name="roi-image",
                 path="/roi-image/{pid}",
-                request_model=RoiRequest,
                 path_params_model=RoiParams,
                 handler=self.handle_roi_image,
                 methods=["GET"],
@@ -43,7 +38,7 @@ class IfcbRoiProcessor(BaseProcessor):
             ),
         ]
 
-    async def handle_roi_image(self, request: RoiRequest, path_params: RoiParams):
+    async def handle_roi_image(self, path_params: RoiParams):
         """Get ROI image."""
         from ifcb import Pid
         pid = Pid(path_params.pid)
