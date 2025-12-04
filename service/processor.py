@@ -10,7 +10,9 @@ from service.roistore import IfcbRoiStore
 
 class RoiRequest(BaseModel):
     """Request payload for ROI service."""
+    pass
 
+class RoiParams(BaseModel):
     pid: str = Field(..., description="ROI pid")
 
 
@@ -29,9 +31,11 @@ class IfcbRoiProcessor(BaseProcessor):
         return [
             StatelessAction(
                 name="roi-image",
-                path="/roi-image",
+                path="/roi-image/{pid}",
                 request_model=RoiRequest,
+                path_params_model=RoiParams,
                 handler=self.handle_roi_image,
+                methods=["GET"],
                 summary="Get ROI image.",
                 description="Get ROI image.",
                 tags=("roi",),
@@ -39,14 +43,14 @@ class IfcbRoiProcessor(BaseProcessor):
             ),
         ]
 
-    async def handle_roi_image(self, payload: RoiRequest):
+    async def handle_roi_image(self, request: RoiRequest, path_params: RoiParams):
         """Get ROI image."""
         from ifcb import Pid
-        pid = Pid(payload.pid)
+        pid = Pid(path_params.pid)
         bin_lid = pid.bin_lid
-        encoded_image_data = self.store.get(payload.pid)
+        encoded_image_data = self.store.get(path_params.pid)
         return {
-            "pid": payload.pid,
+            "pid": path_params.pid,
             "bin-pid": bin_lid,
             "content-type": "image/png",
             "image": encoded_image_data
